@@ -1,0 +1,16 @@
+_ReSharper*
+*.user
+EventsChecker.Console/bin
+EventsChecker.Console/obj
+EventsChecker.Core/bin
+EventsChecker.Core/obj
+EventsChecker.Growl/bin
+EventsChecker.Growl/obj
+EventsChecker.UI/bin
+EventsChecker.UI/obj
+PowerShellRunner/bin
+PowerShellRunner/obj
+WindowsFormsInspiration/bin
+WindowsFormsInspiration/obj
+*.suo
+npp.session
