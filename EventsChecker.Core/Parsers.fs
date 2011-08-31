@@ -48,7 +48,7 @@ module DirectoryContentCheckerParser =
         | _ -> None
     let parse (str:string) =
         match str with
-        | DirectoryCheckerParams (name, dir, recursive) -> new DirectoryContentChecker(name.Trim(), dir.Trim(), recursive) :> IChecker
+        | DirectoryCheckerParams (name, dir, recursiv) -> new DirectoryContentChecker(name.Trim(), dir.Trim(), recursiv) :> IChecker
         | _ -> failwith (sprintf "Unable to parse DirectoryContentChecker from %s" str)
         
 module CheckersParsers =

@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <Tailcalls>false</Tailcalls>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Debug\EventsChecker.UI.XML</DocumentationFile>
@@ -73,10 +73,10 @@
       <Private>True</Private>
     </ProjectReference>
     <Reference Include="Growl.Connector">
-      <HintPath>D:\temp\EventsChecker\lib\Growl.Connector.dll</HintPath>
+      <HintPath>..\lib\Growl.Connector.dll</HintPath>
     </Reference>
     <Reference Include="Growl.CoreLibrary">
-      <HintPath>D:\temp\EventsChecker\lib\Growl.CoreLibrary.dll</HintPath>
+      <HintPath>..\lib\Growl.CoreLibrary.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
