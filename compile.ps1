@@ -1,1 +1,2 @@
-& 'c:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe' EventsChecker.sln
+$root = split-path $MyInvocation.MyCommand.Path
+& 'c:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe' $root\EventsChecker.sln

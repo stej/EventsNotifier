@@ -7,7 +7,7 @@ open System.IO
 /// First line is for date of last check, the rest are ids
 type MultiIdsStorer(caller: obj, someId: string) =
     let path = 
-        let baseDir = System.AppDomain.CurrentDomain.BaseDirectory
+        let baseDir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "data")
         Path.Combine(baseDir, sprintf "mis-%s.txt" someId)
         
     let getDate() = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")

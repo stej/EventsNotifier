@@ -5,7 +5,7 @@ open System.IO
 
 type SimpleValueStorer(caller: obj, someId: string) =
     let path = 
-        let baseDir = System.AppDomain.CurrentDomain.BaseDirectory
+        let baseDir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "data")
         Path.Combine(baseDir, sprintf "svs-%s.txt" someId)
 
     member x.GetValue() =
