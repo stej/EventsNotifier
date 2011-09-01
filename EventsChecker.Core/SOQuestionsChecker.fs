@@ -53,7 +53,7 @@ type SOQuestionsChecker(name, url : string) as this =
                 false
                 
         member this.ReportChangedValue() =
-            [sprintf "Some new questions for %s" name] @
+            [sprintf "New questions for '%s'" name] @
             [for v in this.ChangedValues.Value -> sprintf " %d - %s" v.Id v.Title]
         member this.GetLastCheckDate() =
             storer.GetDate()

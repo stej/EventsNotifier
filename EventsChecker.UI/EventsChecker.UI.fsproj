@@ -54,23 +54,19 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\FSharp\1.0\Microsoft.FSharp.Targets" Condition="!Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildBinPath)\Microsoft.Build.Tasks.v4.0.dll')" />
+  <PropertyGroup>
+    <ApplicationIcon>ico32.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Types.fs" />
     <Compile Include="Notifiers.fs" />
     <Compile Include="CheckersHealth.fs" />
     <Compile Include="Controls.fs" />
     <Compile Include="Program.fs" />
-    <Compile Include="Program2.fs" />
-    <!-- <EmbeddedResource Include="Form.resx"></EmbeddedResource> -->
     <None Include="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <PropertyGroup>
-    <ApplicationIcon>ico32.ico</ApplicationIcon>
-  </PropertyGroup>
-  <ItemGroup>
     <Content Include="ico16.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -109,6 +105,10 @@
       <Project>{9641a6b5-813b-4b95-a11e-c7a82b15ddb7}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <Reference Include="YamlSerializer">
+      <HintPath>..\packages\YamlSerializer.1.0\lib\Net35\YamlSerializer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 	     Other similar extension points exist, see Microsoft.Common.targets.

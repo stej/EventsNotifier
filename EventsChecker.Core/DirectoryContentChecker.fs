@@ -45,7 +45,7 @@ type DirectoryContentChecker(name : string, directory : string, recursiv) as thi
                 false
 
         member this.ReportChangedValue() =
-            [sprintf "New items added to %s" directory] @
+            ["New directories/files added"] @
             [for v in this.ChangedValues.Value -> "  " + v]
         member this.GetLastCheckDate() =
             storer.GetDate()

@@ -25,7 +25,7 @@ type CruiseControlChecker(project, url) =
               node.InnerText
         
     override this.NotifyChange() =
-        [sprintf "Build of %s changed: %s" project this.ChangedValue.Value]
+        [sprintf "Project %s build finished: %s" project this.ChangedValue.Value]
 
     override this.ToString() =
         sprintf "CruiseControlChecker - %s (%s)" project url

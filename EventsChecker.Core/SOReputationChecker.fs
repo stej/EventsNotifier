@@ -17,7 +17,7 @@ type SOReputationChecker(userName, userId) =
         json.["reputation"] |> JsonDownloader.parseJsonInt
         
     override this.NotifyChange() =
-        [sprintf "Changed SO Reputation for user %s(%d). Value: %d" userName userId this.ChangedValue.Value]
+        [sprintf "SO Reputation for %s changed. Value: %d" userName this.ChangedValue.Value]
         
     override this.ToString() =
         sprintf "SOReputationChecker - %s(%d)" userName userId

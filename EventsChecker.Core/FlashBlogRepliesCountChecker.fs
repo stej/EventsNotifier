@@ -20,7 +20,7 @@ type FlashBlogRepliesCountChecker(url : string) =
             |> Conversions.IntOrDefault
             
     override this.NotifyChange() =
-        [sprintf "Somebody commented blog %s. Comments: %d" url this.ChangedValue.Value]
+        [sprintf "Flash blog %s commented. Comments: %d" url this.ChangedValue.Value]
 
     override this.ToString() =
         sprintf "FlashBlogRepliesCountChecker - %s" url
