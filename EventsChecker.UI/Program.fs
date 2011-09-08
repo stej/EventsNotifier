@@ -69,6 +69,14 @@ let initialize() =
         info.Checker.Error |> Event.add (fun e -> updateCtlError info.Control
                                                   checkersHealth.RegisterFailure(info))
 
+    let runNotifications info =
+        let notificationInfo = { TextBox = infoTb
+                                 NotifyIcon = notifyIcon
+                                 Checker = info.Checker
+                                 Messages = info.Checker.ReportChangedValue() }
+        for notifier in info.Notifier do
+            notifier notificationInfo
+
     let rec updateChecker (info:CheckerInfo) =
         async { 
             let! interval = checkersHealth.AsyncGetNextInterval(info)
@@ -85,13 +93,7 @@ let initialize() =
 
             do! Async.SwitchToContext(syncContext)
             if change then
-                for notifier in info.Notifier do
-                    notifier infoTb info.Checker (info.Checker.ReportChangedValue())
-                notifyIcon.ShowBalloonTip(
-                    2000, 
-                    "Event notification", 
-                    (sprintf "New event for %s" (info.Checker.ToString())), 
-                    ToolTipIcon.Info)
+                runNotifications info
 
             let! interval = checkersHealth.AsyncGetNextInterval(info)
             Controls.updateDates interval info
@@ -101,6 +103,7 @@ let initialize() =
 
             return! updateChecker info
         }
+
     let hideWindow() =
         if form.ShowInTaskbar = true then   // show in taskbar as indication whehter the window is visible or not   
             logger.Debug("hiding window")
