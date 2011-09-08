@@ -4,41 +4,41 @@ open System
 open System.IO
 open NLog
 
-module SOReputationParser =
+module private SOReputationParser =
     let parse (str:string) =
         match str.Split('|') with
         | [|name; num|] -> new SOReputationChecker(name.Trim(), num.Trim() |> int) :> IChecker
         | _ -> failwith (sprintf "Unable to parse SOReputationChecker from %s" str)
         
-module FlashBlogRepliesCountParser =
+module private FlashBlogRepliesCountParser =
     let parse (str:string) =
         new FlashBlogRepliesCountChecker(str.Trim()) :> IChecker
         
-module SOQuestionsCheckerParser = 
+module private SOQuestionsCheckerParser = 
     let parse (str:string) =
         match str.Split('|') with
         | [|name; url|] -> new SOQuestionsChecker(name.Trim(), url.Trim()) :> IChecker
         | _ -> failwith (sprintf "Unable to parse SOQuestionsChecker from %s" str)
         
-module SOAnswersCheckerParser = 
+module private SOAnswersCheckerParser = 
     let parse (str:string) =
         match str.Split('|') with
         | [|name; url|] -> new SOAnswersChecker(name.Trim(), url.Trim()) :> IChecker
         | _ -> failwith (sprintf "Unable to parse SOAnswersChecker from %s" str)
         
-module SOCommentsCheckerParser = 
+module private SOCommentsCheckerParser = 
     let parse (str:string) =
         match str.Split('|') with
         | [|name; url|] -> new SOCommentsChecker(name.Trim(), url.Trim()) :> IChecker
         | _ -> failwith (sprintf "Unable to parse SOCommentsChecker from %s" str)
         
-module CruiseControlCheckerParser = 
+module private CruiseControlCheckerParser = 
     let parse (str:string) =
         match str.Split('|') with
         | [|name; url|] -> new CruiseControlChecker(name.Trim(), url.Trim()) :> IChecker
         | _ -> failwith (sprintf "Unable to parse CruiseControlChecker from %s" str)
 
-module DirectoryContentCheckerParser = 
+module private DirectoryContentCheckerParser = 
     let (|DirectoryCheckerParams|_|) (str: string) =
        match str.Split('|') with
         | [|name; directory; recursiv|] -> 
@@ -50,8 +50,14 @@ module DirectoryContentCheckerParser =
         match str with
         | DirectoryCheckerParams (name, dir, recursiv) -> new DirectoryContentChecker(name.Trim(), dir.Trim(), recursiv) :> IChecker
         | _ -> failwith (sprintf "Unable to parse DirectoryContentChecker from %s" str)
+
+module private SkillsMatterWebCheckerParser = 
+   let parse (str:string) =
+        match str.Split('|') with
+        | [|url; textAnchor; urlHref|] -> new SkillsMatterWebChecker(url.Trim(), textAnchor.Trim(), urlHref.Trim()) :> IChecker
+        | _ -> failwith (sprintf "Unable to parse SkillsMatterWebChecker from %s" str)
         
-module CheckersParsers =
+module private CheckersParsers =
     let logger = LogManager.GetLogger("CheckersParsers")
     let parseChecker (str:string) =
         let spaceAt = str.IndexOf(' ')
@@ -65,6 +71,7 @@ module CheckersParsers =
         | "SOCommentsChecker" -> SOCommentsCheckerParser.parse parserData
         | "CruiseControlChecker" -> CruiseControlCheckerParser.parse parserData
         | "DirectoryContentChecker" -> DirectoryContentCheckerParser.parse parserData
+        | "SkillsMatterWebChecker" -> SkillsMatterWebCheckerParser.parse parserData
         | _ -> 
             logger.Error(sprintf "unknown checker type: %s" name)
             failwith (sprintf "unknown checker type: %s" name)

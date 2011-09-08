@@ -73,6 +73,7 @@
     <Compile Include="SOAnswersChecker.fs" />
     <Compile Include="SOCommentsChecker.fs" />
     <Compile Include="DirectoryContentChecker.fs" />
+    <Compile Include="SkillsMatterWebChecker.fs" />
     <Compile Include="Parsers.fs" />
     <None Include="packages.config" />
   </ItemGroup>
