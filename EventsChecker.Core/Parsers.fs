@@ -96,7 +96,7 @@ module DefinitionParser =
             else
                 Some(parseLine_())
         with ex ->
-            logger.Error((sprintf "Error when parsing line %s." line), ex)
+            logger.ErrorException((sprintf "Error when parsing line %s." line), ex)
             printfn "Error when parsing line %s. %A" line ex
             None 
 

@@ -44,8 +44,8 @@ namespace EventsChecker.Notifier
 					_logger.Error("Count of errors: {0}", ps.Streams.Error.Count);
 					foreach (var e in ps.Streams.Error)
 					{
-						_logger.Error(e.ErrorDetails);
-						_logger.Error(e.Exception);
+						_logger.ErrorException("Exception when running PowerShell notifier", e.Exception);
+                        _logger.Error(e.ErrorDetails);
 					}
 				}
 			}

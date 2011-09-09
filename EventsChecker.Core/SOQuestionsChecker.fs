@@ -47,7 +47,7 @@ type SOQuestionsChecker(name, url : string) as this =
                 finishedChecking.Trigger(this)
                 res
             with ex ->
-                logger.Error((sprintf "Error when getting questions for %s" name), ex)
+                logger.ErrorException((sprintf "Error when getting questions for %s" name), ex)
                 storer.UpdateDate()
                 error.Trigger("Error when getting questions", ex)
                 false
