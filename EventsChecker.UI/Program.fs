@@ -54,14 +54,11 @@ let initialize() =
 
     let registerEvents info =
         let updateCtlWorking ctl =
-            syncContext.Post(new SendOrPostCallback(fun _ -> Controls.setRowState Controls.Working ctl
-                                                             info.Control.BackColor <- Color.Yellow), ())
+            syncContext.Post(new SendOrPostCallback(fun _ -> info.Control.BackColor <- Color.Yellow), ())
         let updateCtlWaiting ctl =
-            syncContext.Post(new SendOrPostCallback(fun _ -> Controls.setRowState Controls.Waiting ctl
-                                                             info.Control.BackColor <- Color.White), ())
+            syncContext.Post(new SendOrPostCallback(fun _ -> info.Control.BackColor <- Color.White), ())
         let updateCtlError ctl =
-            syncContext.Post(new SendOrPostCallback(fun _ -> Controls.setRowState Controls.Error ctl
-                                                             info.Control.BackColor <- Color.Red), ())
+            syncContext.Post(new SendOrPostCallback(fun _ -> info.Control.BackColor <- Color.Red), ())
 
         info.Checker.StartedChecking  |> Event.add (fun _ -> updateCtlWorking info.Control)
         info.Checker.FinishedChecking |> Event.add (fun _ -> updateCtlWaiting info.Control

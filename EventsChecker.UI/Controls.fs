@@ -4,18 +4,12 @@ open System.Windows.Forms
 open EventsChecker.Core
 open EventsChecker.UI
 
-type RowState = 
-    | Working
-    | Waiting
-    | Error
-
 let getErrorsTextBox() =
     new TextBox(
         Dock = DockStyle.Fill,
         Location = new System.Drawing.Point(0, 0),
         Name = "errors",
         Multiline = true,
-        //Size = new System.Drawing.Size(284, 20),
         TabIndex = 1,
         ScrollBars = ScrollBars.Vertical
         )
@@ -28,12 +22,10 @@ let private getListView () =
                 Dock = DockStyle.Fill,
                 Location = new System.Drawing.Point(0, 0),
                 Name = "items",
-                //Size = new System.Drawing.Size(284, 94),
                 TabIndex = 0,
                 View = View.Details,
                 CheckBoxes = true)
     l.Columns.Add("Name", 150, HorizontalAlignment.Left) |> ignore
-    l.Columns.Add("S", 20, HorizontalAlignment.Left) |> ignore
     l.Columns.Add("Interval", 30, HorizontalAlignment.Left) |> ignore
     l.Columns.Add("NextCheck", 120, HorizontalAlignment.Left) |> ignore
     l.Columns.Add("Description", 400, HorizontalAlignment.Left) |> ignore
@@ -63,7 +55,6 @@ let addChecker (listView: ListView) (interval: float) (def:CheckerDefinition)  =
     let item = new ListViewItem(Checked = def.Enabled,
                                 Text = def.Checker.GetType().Name)
     let lastCheck = def.Checker.GetLastCheckDate()
-    item.SubItems.Add("") |> ignore
     item.SubItems.Add(interval.ToString()) |> ignore
     item.SubItems.Add(lastCheck.AddMinutes(interval).ToString("yyyy-MM-dd HH:mm:ss")) |> ignore
     item.SubItems.Add(def.Checker.ToString()) |> ignore
@@ -75,24 +66,18 @@ let IndefiniteUpdateDateStr = "-"
 let updateDates (interval: float) (info: CheckerInfo) =
     let lastCheck = info.Checker.GetLastCheckDate()
     if CheckersHealth.IsInfiniteInterval(interval) then
-        info.Control.SubItems.[2].Text <- "->"
-        info.Control.SubItems.[3].Text <- IndefiniteUpdateDateStr
+        info.Control.SubItems.[1].Text <- "->"
+        info.Control.SubItems.[2].Text <- IndefiniteUpdateDateStr
      else 
-        info.Control.SubItems.[2].Text <- (int interval).ToString()
-        info.Control.SubItems.[3].Text <- lastCheck.AddMinutes(interval).ToString("yyyy-MM-dd HH:mm:ss")
+        info.Control.SubItems.[1].Text <- (int interval).ToString()
+        info.Control.SubItems.[2].Text <- lastCheck.AddMinutes(interval).ToString("yyyy-MM-dd HH:mm:ss")
 
 let getNextUpdateDate (item:ListViewItem) =
-    let text = item.SubItems.[3].Text
+    let text = item.SubItems.[2].Text
     if text = IndefiniteUpdateDateStr then
         System.DateTime.MaxValue
     else
         System.DateTime.Parse(text)
-
-let setRowState state (item:ListViewItem) =
-    match state with
-    |Working -> item.SubItems.[1].Text <- "O"
-    |Waiting -> item.SubItems.[1].Text <- ""
-    |Error -> item.SubItems.[1].Text <- "!"
 
 let fillForm (form: Form) =
     form.ClientSize <- new System.Drawing.Size(600, 520)
