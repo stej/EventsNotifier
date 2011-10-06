@@ -7,7 +7,7 @@ type NotificationInput = {
     TextBox : TextBox
     NotifyIcon : NotifyIcon
     Checker : IChecker
-    Messages : string list
+    ChangeDescription : CheckerChangedValue
 }
 
 type CheckerInfo = {

@@ -70,10 +70,11 @@ let initialize() =
                                                   checkersHealth.RegisterFailure(info))
 
     let runNotifications info =
+        let changedValue = info.Checker.ReportChangedValue()
         let notificationInfo = { TextBox = infoTb
                                  NotifyIcon = notifyIcon
                                  Checker = info.Checker
-                                 Messages = info.Checker.ReportChangedValue() }
+                                 ChangeDescription = changedValue}
         for notifier in info.Notifier do
             notifier notificationInfo
 
@@ -117,7 +118,8 @@ let initialize() =
             form.WindowState <- FormWindowState.Normal
             setFormVisibilityWhenAltTab Visible
     clearBtn.Click 
-        |> Event.add (fun _ -> infoTb.Text <- "")
+        |> Event.add (fun _ -> Notifier.notificationsHistory.Clear()
+                               infoTb.Text <- "")
     notifyIcon.Click 
         |> Event.add (fun _ -> logger.Debug("notifyIcon.Click, {0}", form.WindowState)
                                if form.WindowState = FormWindowState.Minimized then

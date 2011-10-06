@@ -4,16 +4,6 @@ open System
 open System.Net
 open System.Xml
 
-module Conversions =
-    let Int64OrDefault (value:string) =
-        match Int64.TryParse(value) with
-            | (true, i) -> i
-            | _ -> -1L
-    let IntOrDefault (value:string) =
-        match Int32.TryParse(value) with
-            | (true, i) -> i
-            | _ -> -1
-
 module Downloader =
     let downloadPage (url : string) =
         let c = new WebClient()
@@ -52,24 +42,4 @@ module HtmlDownloader =
         //reader.MoveToContent() |> ignore
         //XDocument.Load(reader)
         xml
-        
-module Xml = 
-    (*
-    let xattr s (el:XElement) =
-        el.Attribute(XName.Get(s)).Value
-    let xelem s (el:XContainer) =
-        el.Element(XName.Get(s))
-    let xvalue (el:XElement) =
-        el.Value
-    let xelems s (el:XContainer) =
-        el.Elements(XName.Get(s))
-      
-    let xpath path (el:XContainer) =
-        let res = Seq.fold (fun xn s -> xn |> xelem s :> XContainer) el path
-        res :?> XElement
-    *)
-    let xpathValue path (xml:XmlNode) =
-        xml.SelectSingleNode(path).InnerText
-
-    let xpathNodes path (xml:XmlNode) =
-        xml.SelectNodes(path)
+       

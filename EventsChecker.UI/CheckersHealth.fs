@@ -43,7 +43,8 @@ type CheckersHealth() =
             loop (new Dictionary<CheckerDefinition, int>())
         )
     do
-        mbox.Error.Add(fun exn -> System.Windows.Forms.MessageBox.Show(exn.Message, "Error...") |> ignore)
+        mbox.Error.Add(fun exn -> logger.ErrorException("Error in CheckersHealth", exn)
+                                  System.Windows.Forms.MessageBox.Show(exn.Message, "Error...") |> ignore)
     member x.RegisterSuccess(info) = mbox.Post(RegisterSuccess(info))
     member x.RegisterFailure(info) = mbox.Post(RegisterFailure(info))
     member x.AsyncGetNextInterval(info) = mbox.PostAndAsyncReply(fun reply -> GetNextInterval(info, reply))

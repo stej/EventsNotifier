@@ -47,7 +47,8 @@ type SOCommentsChecker(name, url : string) as this =
                 false
 
         member this.ReportChangedValue() =
-            [sprintf "Comment(s) added to %s (%s).\n Count: %d" name url (this.ChangedValues.Value |> Seq.length)]
+            { CheckerHeader = sprintf "Comment(s) added to %s (%s)" name url
+              Details       = [sprintf "Count: %d" (this.ChangedValues.Value |> Seq.length)] }
         member this.GetLastCheckDate() =
             storer.GetDate()
 

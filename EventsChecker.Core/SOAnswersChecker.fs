@@ -47,9 +47,9 @@ type SOAnswersChecker(name, url : string) as this =
                 false
 
         member this.ReportChangedValue() =
-            [sprintf "Answer(s) added to %s (%s)" name url] @
-            [for v in this.ChangedValues.Value -> sprintf " %s" v] @
-            [sprintf " Count: %d" (Seq.length this.ChangedValues.Value)]
+            { CheckerHeader = sprintf "Answer(s) added to %s (%s)" name url
+              Details =       (this.ChangedValues.Value |> Array.toList) @ [sprintf " Count: %d" (Seq.length this.ChangedValues.Value)] }
+            
         member this.GetLastCheckDate() =
             storer.GetDate()
 

@@ -51,8 +51,8 @@ type SkillsMatterWebChecker(url: string, textAnchor : string, urlHref: string) a
                 false
 
         member this.ReportChangedValue() =
-            ["New courses at "+ url] @
-            [for v in this.ChangedValues.Value -> "  " + v]
+            { CheckerHeader = "New courses at "+ url
+              Details       = this.ChangedValues.Value |> Array.toList }
         member this.GetLastCheckDate() =
             storer.GetDate()
 

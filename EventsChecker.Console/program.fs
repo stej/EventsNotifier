@@ -19,7 +19,9 @@ DefinitionParser.parse "checkers.txt"
     |> List.map (fun d -> printf "."; (d, d.Checker.CheckChange()))
     |> List.filter snd
     |> domap (fun _ -> printfn "")
-    |> List.iter (fun (d, res) -> for v in d.Checker.ReportChangedValue() do printf "%s\n" v)
+    |> List.iter (fun (d, res) -> let change = d.Checker.ReportChangedValue()
+                                  printfn "%s\n" change.CheckerHeader
+                                  for v in change.Details do printf "%s\n" v)
     
 if errors.Count > 0 then
     printfn "\nErrors:--------"

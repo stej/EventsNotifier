@@ -24,7 +24,7 @@ namespace EventsChecker.Notifier
 				script = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, script);
 			_script = script;
 		}
-		public void Run(TextBox tb, IChecker checker, IEnumerable messages)
+		public void Run(TextBox tb, IChecker checker, string header, IEnumerable messages)
 		{
 			Console.WriteLine("Running script {0}", _script);
 			try
@@ -32,7 +32,8 @@ namespace EventsChecker.Notifier
 				var ps = PowerShell.Create();
 				ps.Runspace.SessionStateProxy.SetVariable("textbox", tb);
 				ps.Runspace.SessionStateProxy.SetVariable("checker", checker);
-				ps.Runspace.SessionStateProxy.SetVariable("messages", messages);
+				ps.Runspace.SessionStateProxy.SetVariable("header", header);
+				ps.Runspace.SessionStateProxy.SetVariable("message", messages);
 				ps.AddScript(_script);
 				ps.Invoke();
 

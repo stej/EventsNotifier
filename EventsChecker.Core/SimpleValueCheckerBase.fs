@@ -54,6 +54,6 @@ type SimpleValueCheckerBase<'SimpleValueType>(storerPartId : string) as this =
     abstract ConvertValueToStore : 'SimpleValueType -> string
     abstract GetNewestValue : unit -> 'SimpleValueType
     abstract HasValueChanged : string -> 'SimpleValueType -> bool
-    abstract NotifyChange : unit -> string list
+    abstract NotifyChange : unit -> CheckerChangedValue
     // return name that identifies the checker among other checkers of the same type
     abstract GetName : unit -> string
